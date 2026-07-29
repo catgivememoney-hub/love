@@ -34,12 +34,12 @@ const CONFIG = {
     { date: "September 13, 2025", title: "The day we first knew each other", text: "319 days before I made this — where all of it quietly began." },
     { date: "December 18, 2025",  title: "We added each other on Discord",   text: "One little friend request that changed everything." },
     { date: "January 18, 2026",   title: "The day we became us",             text: "11:30 — the moment 'maybe' turned into 'yes'." },
-    { date: "January 19, 2026",   title: "The first time I said I like you", text: "I couldn't hold it in for even a day." },
+    { date: "January 19, 2026",   title: "The first time I said I like you", text: "I want to fuck you too." },
     { date: "February 12, 2026",  title: "The first time I said I love you", text: "Three words I'd never meant more." },
     { date: "February 16, 2026",  title: "Our first video call",            text: "Seeing you in real time — worth every second of the wait." },
-    { date: "February 23, 2026",  title: "Closeness level 10, unlocked",     text: "As close as it would let us get. We wanted closer." },
+    { date: "February 23, 2026",  title: "亲密度 level 10, unlocked",     text: "你的第一次被谁夺走了！！！哼." },
     { date: "July 11, 2026",      title: "The first time we met in person",  text: "Finally, no screen between us." },
-    { date: "July 13, 2026",      title: "Our first SAT session together",   text: "Two desks, one goal, endlessly distracted by you." }
+    { date: "July 13, 2026",      title: "Our first SAT session together",   text: "进不去吧hehehe，你是不是不行呀～" }
   ],
 
   /* ---------- 两地时间 + 距离（洛杉矶 & 圣何塞，同一时区，距离约 490km） ---------- */
@@ -66,7 +66,7 @@ const CONFIG = {
 
   /* ---------- 门 2：信 —— 三道问题，全部答对才解锁（暗号→最爱食物→中文名） ---------- */
   gateLetter: {
-    title: "One last door",
+    title: "One last door to unlock the letter, meow!",
     steps: [
       { prompt: "Type our very first secret code.",
         answers: ["fruit cup"],                 // 输 fruit cup 或 fruitcup 都行
@@ -77,7 +77,7 @@ const CONFIG = {
         placeholder: "Type it here",
         hint: "One of the two I'd never say no to." },
       { prompt: "What's my Chinese name?",
-        answers: ["陈卓言"],                     // 答 陈卓言
+        answers: ["陈卓言”，“ZhuoyanChen"],                     // 答 陈卓言
         placeholder: "Type it here",
         hint: "The name only a few get to say." }
     ]
@@ -122,15 +122,15 @@ const CONFIG = {
      规则：把 q 里的触发词打进去（大小写、空格都不敏感），就会回复对应的 a。
      没匹配到就回复 fallback。触发词可以是一个词或短语。 */
   chat: {
-    intro: "One more thing. Ask me something — try a word.",
-    placeholder: "Type a word...",
-    fallback: "I don't have an answer for that one yet. Try another word.",
+    intro: "One more thing. Ask me something — try 一些你会对我说的话，用英文说就可以啦xD.",
+    placeholder: "Type something...",
+    fallback: "我还没写进去怎么回答呢，message发给我，我加一个回复hehe.",
     pairs: [
       { q: "I miss you", a: "I miss you more, every single day." },
       { q: "[I want to have sex with you",           a: "操死我吧，爸爸🥺" },
       { q: "I want to hug you",           a: "我也想抱抱，想缩在你怀里QwQ" },
       { q: "I want to kiss you",           a: "[你那是吃我吧？哼，亲亲亲" },
-      { q: "I love you",           a: "I love you too." }
+      { q: "I love you",           a: "I love you too，小宝宝." }
     ]
   }
 };
