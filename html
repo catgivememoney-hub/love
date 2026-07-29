@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You</title>
+
+<!--
+============================================================
+  给你的填写说明（只改下面这一个 CONFIG 就够了，别的都不用动）
+  All content is English. Fill in every [ ... ] below.
+  时区用这种写法: "America/Los_Angeles"、"Asia/Shanghai" 等
+  日期门的答案支持 2024-03-15 / 2024/03/15 / 20240315 都能对上
+============================================================
+-->
+<script>
+const CONFIG = {
+
+  /* ---------- 开场 Hero ----------  【示例，之后改成他的名字】 */
+  forName: "Leo",
+  heroSubtitle: "A little corner of the internet, made only for you.",
+
+  /* ---------- 门 1：进门（输入特定日期/名称才能进入之旅）  【示例答案 2024-03-15】 ---------- */
+  gateEntry: {
+    title: "Only you can open this",
+    prompt: "Type the date we first talked, as YYYY-MM-DD.",
+    answers: ["2024-03-15"],                        // 示例：进门时输入 2024-03-15
+    placeholder: "YYYY-MM-DD",
+    hint: "You know exactly when it started."
+  },
+
+  /* ---------- 时间线  【示例内容，之后换成你俩真实的】 ---------- */
+  timeline: [
+    { date: "March 15, 2024",     title: "The day we first talked",   text: "A message at 1 a.m. I almost didn't send. Best decision I ever made." },
+    { date: "April 2, 2024",      title: "Our first call",            text: "Three hours felt like ten minutes. I fell asleep to your voice." },
+    { date: "July 20, 2024",      title: "The first time we met",     text: "You were taller than I imagined and somehow exactly right." },
+    { date: "September 8, 2024",  title: "A moment I keep replaying", text: "You held my hand at the airport and neither of us said goodbye out loud." }
+  ],
+
+  /* ---------- 两地时间 + 距离  【示例：洛杉矶 & 上海，之后改成你俩的城市】 ---------- */
+  you: { city: "Los Angeles", timezone: "America/Los_Angeles", lat: 34.0522, lng: -118.2437 },
+  him: { city: "Shanghai",    timezone: "Asia/Shanghai",       lat: 31.2304, lng: 121.4737 },
+  distanceLine: "That's the distance on a map. On the inside, you're always right here.",
+
+  /* ---------- 情话罐子（点一下随机抽一条）  【示例句子】 ---------- */
+  notes: [
+    "Because you make 3 a.m. feel like the safest hour of the day.",
+    "Because you remember the tiny things I forgot I told you.",
+    "Because your laugh is my favorite sound across any distance.",
+    "Because you never make me feel far away.",
+    "Because you send me the sky when we can't share the same one.",
+    "Because being understood by you feels like coming home.",
+    "Because even our silences are comfortable.",
+    "Because I'd choose you in every timezone, every time."
+  ],
+
+  /* ---------- 倒计时（下次见面）  【示例日期，改成你俩真实见面日】 ---------- */
+  meetup: {
+    target: "2026-12-24T10:00:00",
+    label: "until I hold you again",
+    over:  "The wait is over. Come here."
+  },
+
+  /* ---------- 门 2：信（输入暗号才能读到隐藏的信）  【示例暗号 moonlight】 ---------- */
+  gateLetter: {
+    title: "One last door",
+    prompt: "Type our secret word to read this.",
+    answers: ["moonlight"],                          // 示例：读信前输入 moonlight
+    placeholder: "Our secret word",
+    hint: "The one only we say."
+  },
+  letter: {
+    heading: "A letter for you",
+    body: [
+      "There are things I never quite manage to say out loud, so I'm writing them where you can keep them.",
+      "You've made a life that lives in text messages and time differences feel full. Loving you across all this distance is the easiest hard thing I've ever done.",
+      "So here's my promise: I'm not counting down to the end of the waiting. I'm counting up all the reasons it's worth it."
+    ],
+    signoff: "Always,",
+    signName: "Mia"
+  },
+
+  /* ---------- 最底部藏的一句 P.S.  【示例】 ---------- */
+  ps: "Wherever you are, look up. Same moon."
+};
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Nunito+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --cream:#EDE4D8; --paper:#F4EEE4; --latte:#D8C3A5; --caramel:#B08968;
+    --coffee:#7F5539; --espresso:#4A3728; --muted:#6E5A48;
+    --sage:#A3B18A; --rose:#C9ADA7; --slate:#9DA9B0;
+    --line:#DBCDBB;
+    --display:'Fraunces',Georgia,serif;
+    --body:'Nunito Sans',system-ui,sans-serif;
+    --mono:'Space Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--cream); color:var(--espresso);
+    font-family:var(--body); font-size:17px; line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:var(--display); font-weight:500; color:var(--coffee); line-height:1.15; margin:0}
+  a{color:inherit}
+  ::selection{background:var(--rose); color:var(--espresso)}
+
+  .wrap{max-width:760px; margin:0 auto; padding:0 24px}
+  section{padding:88px 0}
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--caramel); margin:0 0 14px;
+  }
+
+  /* ---- reveal on scroll ---- */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .9s ease, transform .9s ease}
+  .reveal.in{opacity:1; transform:none}
+
+  /* ---- HERO ---- */
+  .hero{min-height:100vh; display:flex; flex-direction:column; align-items:center;
+        justify-content:center; text-align:center; padding:40px 24px}
+  .heart{width:56px; height:56px; cursor:pointer; margin-bottom:26px;
+         animation:beat 1.9s ease-in-out infinite; transform-origin:center}
+  .heart path{fill:var(--rose)}
+  @keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.14)}28%{transform:scale(1)}42%{transform:scale(1.09)}}
+  .hero h1{font-size:clamp(44px,9vw,84px)}
+  .hero h1 em{font-style:italic; color:var(--caramel)}
+  .hero .sub{color:var(--muted); max-width:38ch; margin:20px auto 0}
+  .scrolldown{margin-top:54px; font-family:var(--mono); font-size:12px;
+              letter-spacing:.2em; text-transform:uppercase; color:var(--caramel)}
+  .scrolldown span{display:block; margin-top:8px; animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+  /* ---- GATE (locked door) ---- */
+  .gate{max-width:520px; margin:0 auto; text-align:center;
+        background:var(--paper); border:1px solid var(--line);
+        border-radius:18px; padding:44px 32px}
+  .gate .lockicon{font-size:26px; color:var(--caramel)}
+  .gate h2{font-size:30px; margin:14px 0 10px}
+  .gate p.q{color:var(--muted); margin:0 0 22px}
+  .gate form{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
+  .gate input{
+    flex:1 1 220px; min-width:0; font-family:var(--mono); font-size:15px;
+    padding:13px 16px; border:1px solid var(--line); border-radius:12px;
+    background:#fff; color:var(--espresso); outline:none; text-align:center;
+  }
+  .gate input:focus{border-color:var(--caramel); box-shadow:0 0 0 3px rgba(176,137,104,.18)}
+  .btn{
+    font-family:var(--body); font-weight:600; font-size:15px; cursor:pointer;
+    padding:13px 24px; border:none; border-radius:12px;
+    background:var(--coffee); color:var(--paper); transition:background .25s ease;
+  }
+  .btn:hover{background:var(--espresso)}
+  .btn:focus-visible{outline:3px solid var(--caramel); outline-offset:2px}
+  .gate .hint{margin:16px 0 0; font-size:13px; color:var(--caramel); min-height:18px}
+  .shake{animation:shake .45s}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+
+  .locked{display:none}          /* content hidden until its gate is passed */
+
+  /* ---- TIMELINE ---- */
+  .tl{position:relative; margin-top:12px; padding-left:26px}
+  .tl::before{content:""; position:absolute; left:6px; top:6px; bottom:6px; width:2px; background:var(--line)}
+  .tl-item{position:relative; padding:0 0 40px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{content:""; position:absolute; left:-26px; top:7px; width:12px; height:12px;
+                   border-radius:50%; background:var(--sage); border:2px solid var(--cream)}
+  .tl-date{font-family:var(--mono); font-size:12px; letter-spacing:.12em; color:var(--caramel); text-transform:uppercase}
+  .tl-item h3{font-size:22px; margin:5px 0 6px}
+  .tl-item p{margin:0; color:var(--muted)}
+
+  /* ---- DISTANCE & TIME ---- */
+  .clocks{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:8px}
+  .clock{background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:26px 22px; text-align:center}
+  .clock .city{font-family:var(--display); font-size:21px; color:var(--coffee)}
+  .clock .time{font-family:var(--mono); font-size:34px; color:var(--espresso); margin:8px 0 4px; letter-spacing:.02em}
+  .clock .meta{font-size:13px; color:var(--muted)}
+  .clock .greet{margin-top:10px; font-size:13px; color:var(--caramel); font-style:italic; font-family:var(--display)}
+  .distance{text-align:center; margin-top:30px}
+  .distance .km{font-family:var(--mono); font-size:clamp(30px,7vw,48px); color:var(--coffee)}
+  .distance .km small{font-size:15px; color:var(--muted); letter-spacing:.04em}
+  .distance .say{max-width:34ch; margin:16px auto 0; color:var(--muted); font-family:var(--display); font-style:italic; font-size:19px}
+
+  /* ---- REASONS JAR ---- */
+  .jar{background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:40px 30px; text-align:center; margin-top:8px}
+  .jar .note{font-family:var(--display); font-style:italic; font-size:24px; color:var(--espresso);
+             min-height:96px; display:flex; align-items:center; justify-content:center;
+             transition:opacity .4s ease; padding:0 6px}
+  .jar .note.fade{opacity:0}
+
+  /* ---- COUNTDOWN ---- */
+  .cd{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:8px; text-align:center}
+  .cd .unit{background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:22px 6px}
+  .cd .num{font-family:var(--mono); font-size:clamp(26px,7vw,40px); color:var(--coffee)}
+  .cd .lbl{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--caramel); margin-top:6px}
+  .cd-say{text-align:center; margin-top:22px; color:var(--muted); font-family:var(--display); font-style:italic; font-size:19px}
+
+  /* ---- LETTER ---- */
+  .letter{background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:44px 38px}
+  .letter h2{font-size:32px; margin-bottom:20px}
+  .letter p{color:var(--espresso); margin:0 0 18px}
+  .letter .sign{font-family:var(--display); font-style:italic; font-size:22px; color:var(--coffee); margin-top:26px}
+  .letter .sign b{display:block; font-style:normal; font-weight:500}
+
+  /* ---- FOOTER / PS ---- */
+  footer{padding:70px 24px 90px; text-align:center}
+  footer .ps{font-family:var(--mono); font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--caramel)}
+  footer .ps-text{font-family:var(--display); font-style:italic; font-size:22px; color:var(--coffee);
+                  margin-top:14px; opacity:0; transform:translateY(10px); transition:opacity 1.1s ease, transform 1.1s ease}
+  footer .ps-text.in{opacity:1; transform:none}
+
+  /* ---- floating hearts easter egg ---- */
+  .floater{position:fixed; bottom:-20px; font-size:22px; pointer-events:none; z-index:50;
+           animation:float-up 3.4s ease-in forwards}
+  @keyframes float-up{to{transform:translateY(-115vh) rotate(24deg); opacity:0}}
+
+  @media (max-width:560px){
+    section{padding:64px 0}
+    .clocks{grid-template-columns:1fr}
+    .cd{grid-template-columns:repeat(2,1fr)}
+    .letter{padding:34px 24px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important}
+    .reveal{opacity:1; transform:none; transition:none}
+    .ps-text{opacity:1; transform:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero">
+    <svg class="heart" id="heart" viewBox="0 0 24 24" aria-label="A heart">
+      <path d="M12 21s-7.5-4.9-10-9.2C.2 8.6 1.7 5 5.2 5c2 0 3.3 1.1 4 2.2C10 6.1 11.3 5 13.3 5 16.8 5 18.3 8.6 16.5 11.8 14 16.1 12 21 12 21z"/>
+    </svg>
+    <h1>For <em id="forName">you</em></h1>
+    <p class="sub" id="heroSub"></p>
+    <div class="scrolldown">scroll<span>&#8595;</span></div>
+  </header>
+
+  <!-- ===================== GATE 1: ENTRY ===================== -->
+  <section id="entry">
+    <div class="wrap">
+      <div class="gate reveal" id="gateEntry">
+        <div class="lockicon">&#9906;</div>
+        <h2 id="ge-title"></h2>
+        <p class="q" id="ge-prompt"></p>
+        <form id="ge-form" autocomplete="off">
+          <input id="ge-input" type="text" aria-label="Answer" />
+          <button class="btn" type="submit">Open</button>
+        </form>
+        <p class="hint" id="ge-hint"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Everything below stays hidden until Gate 1 is passed -->
+  <div class="locked" id="afterEntry">
+
+    <!-- ===================== TIMELINE ===================== -->
+    <section id="timeline">
+      <div class="wrap">
+        <p class="eyebrow reveal">Our story, in order</p>
+        <h2 class="reveal" style="font-size:34px; margin-bottom:8px">How we got here</h2>
+        <div class="tl reveal" id="tl"></div>
+      </div>
+    </section>
+
+    <!-- ===================== DISTANCE & TIME ===================== -->
+    <section id="distance">
+      <div class="wrap">
+        <p class="eyebrow reveal">Same sky, different clocks</p>
+        <h2 class="reveal" style="font-size:34px; margin-bottom:18px">Where we are right now</h2>
+        <div class="clocks reveal">
+          <div class="clock">
+            <div class="city" id="youCity"></div>
+            <div class="time" id="youTime">--:--</div>
+            <div class="meta" id="youMeta"></div>
+          </div>
+          <div class="clock">
+            <div class="city" id="himCity"></div>
+            <div class="time" id="himTime">--:--</div>
+            <div class="meta" id="himMeta"></div>
+            <div class="greet" id="himGreet"></div>
+          </div>
+        </div>
+        <div class="distance reveal">
+          <div class="km" id="km">&mdash;</div>
+          <p class="say" id="distSay"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== REASONS JAR ===================== -->
+    <section id="reasons">
+      <div class="wrap">
+        <p class="eyebrow reveal">Open one anytime</p>
+        <h2 class="reveal" style="font-size:34px; margin-bottom:18px">Reasons, on a loop</h2>
+        <div class="jar reveal">
+          <div class="note" id="note">Tap the button and I'll tell you one.</div>
+          <button class="btn" id="drawNote" type="button" style="margin-top:22px">Open a note</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== COUNTDOWN ===================== -->
+    <section id="countdown">
+      <div class="wrap">
+        <p class="eyebrow reveal">Counting down</p>
+        <h2 class="reveal" style="font-size:34px; margin-bottom:18px" id="cdHead"></h2>
+        <div class="cd reveal" id="cd">
+          <div class="unit"><div class="num" id="cd-d">0</div><div class="lbl">days</div></div>
+          <div class="unit"><div class="num" id="cd-h">0</div><div class="lbl">hours</div></div>
+          <div class="unit"><div class="num" id="cd-m">0</div><div class="lbl">mins</div></div>
+          <div class="unit"><div class="num" id="cd-s">0</div><div class="lbl">secs</div></div>
+        </div>
+        <p class="cd-say reveal" id="cdSay"></p>
+      </div>
+    </section>
+
+    <!-- ===================== GATE 2: LETTER ===================== -->
+    <section id="letterGate">
+      <div class="wrap">
+        <div class="gate reveal" id="gateLetter">
+          <div class="lockicon">&#9906;</div>
+          <h2 id="gl-title"></h2>
+          <p class="q" id="gl-prompt"></p>
+          <form id="gl-form" autocomplete="off">
+            <input id="gl-input" type="text" aria-label="Answer" />
+            <button class="btn" type="submit">Unlock</button>
+          </form>
+          <p class="hint" id="gl-hint"></p>
+        </div>
+
+        <div class="locked" id="letterWrap" style="margin-top:8px">
+          <div class="letter reveal">
+            <h2 id="lt-head"></h2>
+            <div id="lt-body"></div>
+            <div class="sign"><span id="lt-signoff"></span><b id="lt-signname"></b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FOOTER / PS ===================== -->
+    <footer>
+      <div class="ps">P.S.</div>
+      <div class="ps-text" id="psText"></div>
+    </footer>
+
+  </div><!-- /afterEntry -->
+
+<script>
+(function(){
+  const C = CONFIG;
+  const $ = id => document.getElementById(id);
+  const reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* ---------- fill static text ---------- */
+  $('forName').textContent = C.forName;
+  $('heroSub').textContent = C.heroSubtitle;
+
+  /* ---------- reveal-on-scroll ---------- */
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+  }, {threshold:0.15});
+  function watch(){ document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el)); }
+
+  /* ---------- gate helper (输入日期/名称才能进入下一步) ---------- */
+  function norm(s){ return String(s).toLowerCase().trim().replace(/[\s./_,-]/g,''); }
+  /* 把任何常见写法的日期归一成 YYYYMMDD，这样 2024-03-15 / 2024/3/15 / 3/15/2024 都能对上 */
+  function dateKey(s){
+    const nums = String(s).match(/\d+/g);
+    if(!nums || nums.length < 3) return null;
+    let y,m,d;
+    if(nums[0].length===4){ y=nums[0]; m=nums[1]; d=nums[2]; }        // 年在前: YYYY M D
+    else if(nums[2].length===4){ y=nums[2]; m=nums[0]; d=nums[1]; }   // 年在后: M D YYYY
+    else return null;
+    m=String(+m).padStart(2,'0'); d=String(+d).padStart(2,'0');
+    if(+m>12 && +d<=12){ const t=m; m=d; d=t; }                       // 顺序反了就换回来
+    return y+m+d;
+  }
+  function makeGate(cfg, ids, onPass){
+    $(ids.title).textContent = cfg.title;
+    $(ids.prompt).textContent = cfg.prompt;
+    $(ids.input).placeholder = cfg.placeholder || '';
+    const accepted = cfg.answers.map(norm);
+    const acceptedDates = cfg.answers.map(dateKey).filter(Boolean);
+    $(ids.form).addEventListener('submit', ev=>{
+      ev.preventDefault();
+      const raw = $(ids.input).value;
+      const ok = (norm(raw) && accepted.includes(norm(raw)))
+              || (dateKey(raw) && acceptedDates.includes(dateKey(raw)));
+      if(ok){
+        onPass();
+      } else {
+        const g = $(ids.gate);
+        g.classList.remove('shake'); void g.offsetWidth; g.classList.add('shake');
+        $(ids.hint).textContent = cfg.hint || 'Not quite. Try again.';
+      }
+    });
+  }
+
+  /* ---------- Gate 1: entry ---------- */
+  makeGate(C.gateEntry,
+    {title:'ge-title', prompt:'ge-prompt', input:'ge-input', form:'ge-form', hint:'ge-hint', gate:'gateEntry'},
+    ()=>{
+      $('afterEntry').classList.remove('locked');
+      try { buildAfterEntry(); } catch(err){ console.error('build error:', err); }
+      watch();
+      const y = $('timeline').getBoundingClientRect().top + window.scrollY - 10;
+      window.scrollTo({top:y, behavior: reduce ? 'auto' : 'smooth'});
+    });
+
+  /* ---------- Gate 2: letter ---------- */
+  function initLetterGate(){
+    makeGate(C.gateLetter,
+      {title:'gl-title', prompt:'gl-prompt', input:'gl-input', form:'gl-form', hint:'gl-hint', gate:'gateLetter'},
+      ()=>{
+        $('gateLetter').style.display='none';
+        $('letterWrap').classList.remove('locked');
+        watch();
+      });
+  }
+
+  /* ---------- build content revealed after entry ---------- */
+  let built = false;
+  function buildAfterEntry(){
+    if(built) return; built = true;
+
+    /* timeline */
+    $('tl').innerHTML = C.timeline.map(t=>
+      `<div class="tl-item"><div class="tl-date">${t.date}</div><h3>${t.title}</h3><p>${t.text}</p></div>`
+    ).join('');
+
+    /* clocks + distance */
+    $('youCity').textContent = C.you.city;
+    $('himCity').textContent = C.him.city;
+    $('distSay').textContent = C.distanceLine;
+    startClocks();
+    showDistance();
+
+    /* reasons jar */
+    let last = -1;
+    $('drawNote').addEventListener('click', ()=>{
+      const el = $('note'); el.classList.add('fade');
+      setTimeout(()=>{
+        let i; do { i = Math.floor(Math.random()*C.notes.length); } while(C.notes.length>1 && i===last);
+        last = i; el.textContent = C.notes[i]; el.classList.remove('fade');
+      }, reduce ? 0 : 380);
+    });
+
+    /* countdown */
+    $('cdHead').textContent = C.meetup.label.charAt(0).toUpperCase()+C.meetup.label.slice(1);
+    startCountdown();
+
+    /* letter */
+    $('lt-head').textContent = C.letter.heading;
+    $('lt-body').innerHTML = C.letter.body.map(p=>`<p>${p}</p>`).join('');
+    $('lt-signoff').textContent = C.letter.signoff + ' ';
+    $('lt-signname').textContent = C.letter.signName;
+    initLetterGate();
+
+    /* PS */
+    $('psText').textContent = C.ps;
+    const psObs = new IntersectionObserver(es=>{
+      es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); psObs.unobserve(e.target); }});
+    }, {threshold:0.4});
+    psObs.observe($('psText'));
+  }
+
+  /* ---------- live clocks ---------- */
+  function fmt(tz){
+    try { return new Intl.DateTimeFormat('en-US',{timeZone:tz,hour:'2-digit',minute:'2-digit',hour12:true})
+      .format(new Date()).toLowerCase(); }
+    catch(e){ return '--:--'; }
+  }
+  function dayLabel(tz){
+    try { return new Intl.DateTimeFormat('en-US',{timeZone:tz,weekday:'long',month:'short',day:'numeric'}).format(new Date()); }
+    catch(e){ return 'Check the timezone spelling'; }
+  }
+  function hourIn(tz){
+    try { return +new Intl.DateTimeFormat('en-US',{timeZone:tz,hour:'2-digit',hour12:false}).format(new Date()); }
+    catch(e){ return 12; }
+  }
+  function greetFor(h){
+    if(h<5)  return "You're probably asleep. Sleep well.";
+    if(h<12) return "Good morning over there.";
+    if(h<17) return "Good afternoon over there.";
+    if(h<22) return "Good evening over there.";
+    return "It's late for you. Rest soon.";
+  }
+  function tickClocks(){
+    $('youTime').textContent = fmt(C.you.timezone);
+    $('youMeta').textContent = dayLabel(C.you.timezone);
+    $('himTime').textContent = fmt(C.him.timezone);
+    $('himMeta').textContent = dayLabel(C.him.timezone);
+    $('himGreet').textContent = greetFor(hourIn(C.him.timezone));
+  }
+  function startClocks(){ tickClocks(); setInterval(tickClocks,1000); }
+
+  /* ---------- distance (haversine) ---------- */
+  function showDistance(){
+    const R=6371, toRad=d=>d*Math.PI/180;
+    const dLat=toRad(C.him.lat-C.you.lat), dLng=toRad(C.him.lng-C.you.lng);
+    const a=Math.sin(dLat/2)**2 + Math.cos(toRad(C.you.lat))*Math.cos(toRad(C.him.lat))*Math.sin(dLng/2)**2;
+    const km=Math.round(2*R*Math.asin(Math.sqrt(a)));
+    const mi=Math.round(km*0.621371);
+    $('km').innerHTML = km.toLocaleString()+' km <small>&middot; '+mi.toLocaleString()+' mi apart</small>';
+  }
+
+  /* ---------- countdown ---------- */
+  function startCountdown(){
+    const target = new Date(C.meetup.target).getTime();
+    function tick(){
+      const diff = target - Date.now();
+      if(diff<=0){
+        $('cd').style.display='none';
+        $('cdSay').textContent = C.meetup.over;
+        return;
+      }
+      const d=Math.floor(diff/86400000);
+      const h=Math.floor(diff%86400000/3600000);
+      const m=Math.floor(diff%3600000/60000);
+      const s=Math.floor(diff%60000/1000);
+      $('cd-d').textContent=d; $('cd-h').textContent=h;
+      $('cd-m').textContent=String(m).padStart(2,'0');
+      $('cd-s').textContent=String(s).padStart(2,'0');
+    }
+    tick(); setInterval(tick,1000);
+  }
+
+  /* ---------- heart easter egg (点 5 下爱心) ---------- */
+  let clicks=0, timer=null;
+  $('heart').addEventListener('click', ()=>{
+    clicks++;
+    clearTimeout(timer);
+    timer=setTimeout(()=>clicks=0, 1500);
+    if(clicks>=5){ clicks=0; rainHearts(); }
+  });
+  function rainHearts(){
+    if(reduce) return;
+    const colors=['#C9ADA7','#A3B18A','#B08968','#9DA9B0'];
+    for(let i=0;i<16;i++){
+      const s=document.createElement('div');
+      s.className='floater'; s.textContent='\u2665';
+      s.style.left=Math.random()*100+'vw';
+      s.style.color=colors[i%4];
+      s.style.animationDelay=(Math.random()*0.8)+'s';
+      s.style.fontSize=(16+Math.random()*18)+'px';
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(),4200);
+    }
+  }
+
+  /* initial watch for hero + gate1 */
+  watch();
+})();
+</script>
+</body>
+</html>
