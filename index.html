@@ -16,78 +16,81 @@
 <script>
 const CONFIG = {
 
-  /* ---------- 开场 Hero ----------  【示例，之后改成他的名字】 */
-  forName: "Leo",
+  /* ---------- 开场 Hero ---------- */
+  forName: "jeffy",
   heroSubtitle: "A little corner of the internet, made only for you.",
 
-  /* ---------- 门 1：进门（输入特定日期/名称才能进入之旅）  【示例答案 2024-03-15】 ---------- */
+  /* ---------- 门 1：进门 —— 输入"我们在一起的那一天" 2026-01-18 ---------- */
   gateEntry: {
     title: "Only you can open this",
-    prompt: "Type the date we first talked, as YYYY-MM-DD.",
-    answers: ["2024-03-15"],                        // 示例：进门时输入 2024-03-15
+    prompt: "Type the day we became us, as YYYY-MM-DD.",
+    answers: ["2026-01-18"],
     placeholder: "YYYY-MM-DD",
-    hint: "You know exactly when it started."
+    hint: "The day everything changed."
   },
 
-  /* ---------- 时间线  【示例内容，之后换成你俩真实的】 ---------- */
+  /* ---------- 时间线（按时间顺序，日期都已填好） ---------- */
   timeline: [
-    { date: "March 15, 2024",     title: "The day we first talked",   text: "A message at 1 a.m. I almost didn't send. Best decision I ever made." },
-    { date: "April 2, 2024",      title: "Our first call",            text: "Three hours felt like ten minutes. I fell asleep to your voice." },
-    { date: "July 20, 2024",      title: "The first time we met",     text: "You were taller than I imagined and somehow exactly right." },
-    { date: "September 8, 2024",  title: "A moment I keep replaying", text: "You held my hand at the airport and neither of us said goodbye out loud." }
+    { date: "September 13, 2025", title: "The day we first knew each other", text: "319 days before I made this — where all of it quietly began." },
+    { date: "December 18, 2025",  title: "We added each other on Discord",   text: "One little friend request that changed everything." },
+    { date: "January 18, 2026",   title: "The day we became us",             text: "11:30 — the moment 'maybe' turned into 'yes'." },
+    { date: "January 19, 2026",   title: "The first time I said I like you", text: "I couldn't hold it in for even a day." },
+    { date: "February 12, 2026",  title: "The first time I said I love you", text: "Three words I'd never meant more." },
+    { date: "February 16, 2026",  title: "Our first video call",            text: "Seeing you in real time — worth every second of the wait." },
+    { date: "February 23, 2026",  title: "Closeness level 10, unlocked",     text: "As close as it would let us get. We wanted closer." },
+    { date: "July 11, 2026",      title: "The first time we met in person",  text: "Finally, no screen between us." },
+    { date: "July 13, 2026",      title: "Our first SAT session together",   text: "Two desks, one goal, endlessly distracted by you." }
   ],
 
-  /* ---------- 两地时间 + 距离  【示例：洛杉矶 & 上海，之后改成你俩的城市】 ---------- */
+  /* ---------- 两地时间 + 距离（洛杉矶 & 圣何塞，同一时区，距离约 490km） ---------- */
   you: { city: "Los Angeles", timezone: "America/Los_Angeles", lat: 34.0522, lng: -118.2437 },
-  him: { city: "Shanghai",    timezone: "Asia/Shanghai",       lat: 31.2304, lng: 121.4737 },
+  him: { city: "San Jose",    timezone: "America/Los_Angeles", lat: 37.3382, lng: -121.8863 },
   distanceLine: "That's the distance on a map. On the inside, you're always right here.",
 
-  /* ---------- 情话罐子（点一下随机抽一条）  【示例句子】 ---------- */
+  /* ---------- 情话罐子（点一下随机抽一条） ---------- */
   notes: [
-    "Because you make 3 a.m. feel like the safest hour of the day.",
-    "Because you remember the tiny things I forgot I told you.",
-    "Because your laugh is my favorite sound across any distance.",
-    "Because you never make me feel far away.",
-    "Because you send me the sky when we can't share the same one.",
-    "Because being understood by you feels like coming home.",
-    "Because even our silences are comfortable.",
-    "Because I'd choose you in every timezone, every time."
+    "Because you're the first person I've ever fit with this perfectly.",
+    "Because I could never get tired of you — not ever.",
+    "Because being with you is the most relaxed I ever feel.",
+    "Because you're my first love and my last.",
+    "Because you believe in me, and I believe in you.",
+    "Because you're the one I was meant to find."
   ],
 
-  /* ---------- 倒计时（下次见面）  【示例日期，改成你俩真实见面日】 ---------- */
+  /* ---------- 倒计时：倒数到 9 月 30 号 ---------- */
   meetup: {
-    target: "2026-12-24T10:00:00",
-    label: "until I hold you again",
+    target: "2026-09-30T00:00:00",
+    label: "until I see you again",
     over:  "The wait is over. Come here."
   },
 
-  /* ---------- 门 2：信（输入暗号才能读到隐藏的信）  【示例暗号 moonlight】 ---------- */
+  /* ---------- 门 2：信 —— 暗号 fruit cup ---------- */
   gateLetter: {
     title: "One last door",
-    prompt: "Type our secret word to read this.",
-    answers: ["moonlight"],                          // 示例：读信前输入 moonlight
-    placeholder: "Our secret word",
-    hint: "The one only we say."
+    prompt: "Type our very first secret code to open this.",
+    answers: ["fruit cup"],                     // 输 "fruit cup" 或 "fruitcup" 都能过
+    placeholder: "Our first secret code",
+    hint: "Remember the first one we ever set?"
   },
   letter: {
     heading: "A letter for you",
+    /* 👇 信在这里写，一行一段，想写多少段就加多少行。全英文。 */
     body: [
-      "There are things I never quite manage to say out loud, so I'm writing them where you can keep them.",
-      "You've made a life that lives in text messages and time differences feel full. Loving you across all this distance is the easiest hard thing I've ever done.",
-      "So here's my promise: I'm not counting down to the end of the waiting. I'm counting up all the reasons it's worth it."
+      "[Write your letter here. One line = one paragraph. Add as many lines as you want.]",
+      "[Second paragraph...]"
     ],
     signoff: "Always,",
-    signName: "Mia"
+    signName: "presley"
   },
 
-  /* ---------- 最底部藏的一句 P.S.  【示例】 ---------- */
-  ps: "Wherever you are, look up. Same moon."
+  /* ---------- 最底部藏的一句 P.S.（想改就改，不改也行） ---------- */
+  ps: "Wherever you are, look up. Same sky, always."
 };
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
   :root{
@@ -95,7 +98,7 @@ const CONFIG = {
     --coffee:#7F5539; --espresso:#4A3728; --muted:#6E5A48;
     --sage:#A3B18A; --rose:#C9ADA7; --slate:#9DA9B0;
     --line:#DBCDBB;
-    --display:'Instrument Serif',Georgia,serif;
+    --display:'Instrument Sans',system-ui,sans-serif;
     --body:'Instrument Sans',system-ui,sans-serif;
     --mono:'DM Mono',ui-monospace,monospace;
   }
@@ -106,7 +109,7 @@ const CONFIG = {
     font-family:var(--body); font-size:17px; line-height:1.75;
     -webkit-font-smoothing:antialiased;
   }
-  h1,h2,h3{font-family:var(--display); font-weight:400; letter-spacing:-.01em; color:var(--coffee); line-height:1.12; margin:0}
+  h1,h2,h3{font-family:var(--display); font-weight:500; letter-spacing:-.02em; color:var(--coffee); line-height:1.15; margin:0}
   a{color:inherit}
   ::selection{background:var(--rose); color:var(--espresso)}
 
@@ -276,7 +279,7 @@ const CONFIG = {
     <!-- ===================== DISTANCE & TIME ===================== -->
     <section id="distance">
       <div class="wrap">
-        <p class="eyebrow reveal">Same sky, different clocks</p>
+        <p class="eyebrow reveal">Same clock, still too far</p>
         <h2 class="reveal" style="font-size:34px; margin-bottom:18px">Where we are right now</h2>
         <div class="clocks reveal">
           <div class="clock">
